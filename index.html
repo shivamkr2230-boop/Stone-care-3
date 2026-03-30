@@ -834,11 +834,43 @@ window.addEventListener('scroll',()=>{
   document.getElementById('navbar').style.boxShadow =
     scrollY > 40 ? '0 4px 24px rgba(0,0,0,.13)' : '0 2px 14px rgba(0,0,0,.07)';
 });
-
 /* FAQ TOGGLE */
 function toggleFaq(el){
   const ans = el.nextElementSibling;
   const isOpen = ans.classList.contains('show');
   document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('show'));
   document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
-  if(!isOpen){ ans.class
+  if(!isOpen){ ans.classList.add('show'); el.classList.add('open'); }
+}
+
+/* ORDER FORM */
+function submitOrder(){
+  const name = document.querySelectorAll('input')[0].value || 'ग्राहक';
+  const phone = document.querySelectorAll('input')[1].value || '';
+  const city = document.querySelectorAll('input')[2].value || '';
+  const product = document.querySelector('select').value;
+  const address = document.querySelector('textarea').value || '';
+  const msg = `नमस्ते RN Herbal 🌿\n\nमुझे ऑर्डर करना है:\n\n👤 नाम: ${name}\n📱 फोन: ${phone}\n🏙️ शहर: ${city}\n📦 उत्पाद: ${product}\n🏠 पता: ${address}\n\nकृपया जल्दी डिलीवरी की जानकारी दें।`;
+  window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+/* COUNTER ANIMATION */
+function animateCounters(){
+  document.querySelectorAll('.hstat-n').forEach(el=>{
+    const target = el.textContent;
+    if(target.includes('+')){
+      const num = parseInt(target);
+      let count = 0;
+      const step = num/60;
+      const t = setInterval(()=>{
+        count = Math.min(count+step, num);
+        el.textContent = Math.floor(count)+'+';
+        if(count>=num) clearInterval(t);
+      },30);
+    }
+  });
+}
+setTimeout(animateCounters, 800);
+</script>
+</body>
+</html>
